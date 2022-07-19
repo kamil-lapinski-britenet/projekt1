@@ -3,6 +3,7 @@ package pl.britenet.campus.service;
 import pl.britenet.campus.database.DatabaseService;
 import pl.britenet.campus.database.object.Cart;
 import pl.britenet.campus.database.object.CartProducts;
+import pl.britenet.campus.database.object.Images;
 import pl.britenet.campus.database.object.Product;
 
 import java.sql.SQLException;
@@ -71,7 +72,10 @@ public class CartProductsService {
         this.databaseService.performDML(String.format("SET foreign_key_checks=1"));
     }
 
-    public void updateCart (Cart cart,int cartId) {
+    public void updateCartProduct (CartProducts cartProducts) {
+
+        this.databaseService.performDML(String.format("UPDATE cartproducts SET amount = "
+                +cartProducts.getAmount()+ ", cartId = "+ cartProducts.getCartId() + " productId = "+cartProducts.getProductId()+" WHERE cartproductsId = %d",cartProducts.getCartProductsId()));
 
 
     }

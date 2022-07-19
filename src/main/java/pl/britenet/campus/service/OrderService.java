@@ -63,7 +63,7 @@ public class OrderService {
 
     public void updateOrder (Order order) {
 
-
+        this.databaseService.performDML(String.format("UPDATE orders SET status= '" +order.getStatus()+"' WHERE orderId = %d",order.getOrderId()));
     }
 
 
