@@ -94,5 +94,23 @@ public class UserService {
                 user.getName(), user.getLastName(), user.getMail(), user.getAddress(), user.getPassword(), user.getTelephone(), user.getUserId()));
     }
 
+    public Optional<User> getUserMailPass(String mail, String password) {
+        User retrievedProduct = this.databaseService.performSQL(String.format("SELECT * FROM users WHERE mail='%s' AND password='%s'", mail, password), resultSet -> {
+            try {
+                if (resultSet.next()) {
+                    User user = new User(resultSet.getInt("userId"));
+                    user.setMail(resultSet.getString("mail"));
+                    user.setPassword(resultSet.getString("password"));
+                    return user;
+                }
+            } catch (SQLException exception) {
+                throw new IllegalStateException(exception);
+            }
+            return null;
+        });
+
+        return Optional.of(retrievedProduct);
+    }
+
 
 }
