@@ -3,6 +3,7 @@ package pl.britenet.campus.service;
 import pl.britenet.campus.database.DatabaseService;
 import pl.britenet.campus.database.object.Cart;
 import pl.britenet.campus.database.object.Order;
+import pl.britenet.campus.database.object.User;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -24,7 +25,6 @@ public class CartService {
                 while (resultSet.next()) {
                     Cart cart = new Cart(resultSet.getInt("cartId"));
                     cart.setCartPrice(resultSet.getDouble("cartPrice"));
-
                     cartList.add(cart);
                 }
             } catch (SQLException exception) {
@@ -52,7 +52,9 @@ public class CartService {
     }
 
     public void insertCart(Cart cart) {
-        this.databaseService.performDML(String.format("INSERT INTO cart (cartPrice) VALUES ("+cart.getCartPrice()+")"));
+        User user = new User();
+
+        this.databaseService.performDML(String.format("INSERT INTO cart (cartPrice, userId, productCartId) VALUES ('"+cart.getCartPrice()+"', '"+cart.getUserId()+"','"+cart.getProductCartId()+"')"));
     }
 
     public void deleteCart (int cartId) {

@@ -31,6 +31,8 @@ public class CartProductsService {
                     cart.setCartPrice(resultSet.getDouble("cart.cartPrice"));
                     CartProducts cartProducts = new CartProducts(resultSet.getInt("cartProductsId"));
                     cartProducts.setAmount(resultSet.getInt("amount"));
+                    cartProducts.setCartId(resultSet.getInt("cart.cartId"));
+                    cartProducts.setProductId(resultSet.getInt("product.productId"));
                     cartProducts.setProduct(product);
                     cartProducts.setCart(cart);
 
@@ -63,7 +65,7 @@ public class CartProductsService {
     }
 
     public void insertCartProduct(CartProducts cartProducts) {
-        this.databaseService.performDML(String.format("INSERT INTO cartProduct (amount) VALUES ("+cartProducts.getAmount()+")"));
+        this.databaseService.performDML(String.format("INSERT INTO cartProducts (amount) VALUES ("+cartProducts.getAmount()+")"));
     }
 
     public void deleteCartProduct (int cartProductId) {

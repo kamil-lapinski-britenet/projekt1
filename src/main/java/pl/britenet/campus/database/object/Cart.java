@@ -6,6 +6,26 @@ public class Cart {
     private final int cartId;
     private double cartPrice;
 
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
+
+    public int getProductCartId() {
+        return productCartId;
+    }
+
+    public void setProductCartId(int productCartId) {
+        this.productCartId = productCartId;
+    }
+
+    private int userId;
+    private int productCartId;
+
+
     public Cart() {
         this.cartId = Constants.INVALID_ID;
     }
@@ -18,6 +38,8 @@ public class Cart {
         this.cartId = cartId;
         this.cartPrice = cartPrice;
     }
+
+
 
 
 

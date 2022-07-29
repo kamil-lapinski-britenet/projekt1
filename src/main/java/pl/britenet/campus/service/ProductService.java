@@ -39,13 +39,16 @@ public class ProductService {
     }
 //"SELECT * FROM product"
     public Optional<Product> getProduct(int productId) {
-        Product retrievedProduct = this.databaseService.performSQL(String.format("SELECT * FROM product WHERE productId = %d", productId), resultSet -> {
+        Product retrievedProduct = this.databaseService.performSQL(String.format("SELECT * FROM product LEFT JOIN images ON product.productId = images.productId WHERE product.productId = %d", productId), resultSet -> {
             try {
                 if (resultSet.next()) {
                     Product product = new Product(resultSet.getInt("productId"));
                     product.setName(resultSet.getString("name"));
                     product.setDescription(resultSet.getString("description"));
                     product.setPrice(resultSet.getDouble("price"));
+                    Images images = new Images(resultSet.getInt("imageId"));
+                    images.setPaths(resultSet.getString("paths"));
+                    product.setImages(images);
                     return product;
                 }
             } catch (SQLException exception) {
