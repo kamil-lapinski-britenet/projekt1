@@ -58,7 +58,9 @@ public class OrderProductsService {
     }
 
     public void insertOrderProduct(OrderProducts orderProducts) {
-        this.databaseService.performDML(String.format("INSERT INTO orderProducts () VALUES ("+")"));
+        this.databaseService.performDML(String.format("SET foreign_key_checks=0"));
+        this.databaseService.performDML(String.format("INSERT INTO orderProducts (productId, orderId) VALUES ('"+orderProducts.getProductId()+"', '"+orderProducts.getOrderId()+"')"));
+        this.databaseService.performDML(String.format("SET foreign_key_checks=1"));
     }
 
     public void deleteOrderProduct (int orderProductId) {

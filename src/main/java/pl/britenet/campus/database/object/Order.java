@@ -44,6 +44,24 @@ public class Order {
     }
 
     private Date orderDate;
+    private int userId;
+    private int orderProductId;
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
+
+    public int getOrderProductId() {
+        return orderProductId;
+    }
+
+    public void setOrderProductId(int orderProductId) {
+        this.orderProductId = orderProductId;
+    }
 
     @Override
     public String toString() {

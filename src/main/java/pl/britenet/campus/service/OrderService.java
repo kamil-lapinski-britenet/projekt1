@@ -52,7 +52,10 @@ public class OrderService {
     }
 
     public void insertOrder(Order order) {
-        this.databaseService.performDML(String.format("INSERT INTO orders (status) VALUES ('%s')", order.getStatus()));
+        this.databaseService.performDML(String.format("SET foreign_key_checks=0"));
+        this.databaseService.performDML(String.format("INSERT INTO orders (status, userId, orderProductId) VALUES ('%s', %d, %d)", order.getStatus(),
+                order.getUserId(), order.getOrderProductId()));
+        this.databaseService.performDML(String.format("SET foreign_key_checks=1"));
     }
 
     public void deleteOrder (int orderId) {

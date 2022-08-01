@@ -65,8 +65,12 @@ public class CartProductsService {
     }
 
     public void insertCartProduct(CartProducts cartProducts) {
-        this.databaseService.performDML(String.format("INSERT INTO cartProducts (amount) VALUES ("+cartProducts.getAmount()+")"));
+
+        this.databaseService.performDML(String.format("SET foreign_key_checks=0"));
+        this.databaseService.performDML(String.format("INSERT INTO cartProducts (amount, cartId, productId) VALUES ("+cartProducts.getAmount()+", '"+cartProducts.getCartId()+"', '"+cartProducts.getProductId()+"')"));
+        this.databaseService.performDML(String.format("SET foreign_key_checks=1"));
     }
+
 
     public void deleteCartProduct (int cartProductId) {
         this.databaseService.performDML(String.format("SET foreign_key_checks=0"));
